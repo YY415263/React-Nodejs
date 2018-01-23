@@ -17,6 +17,13 @@ app.set('views', './client/view');
 app.set('view engine', 'html');
 app.engine('html', ejs.renderFile);
 
+
+app.get('/data/:module', function (req, res, next) {
+    var c_path = req.params.module;
+    var Action = require('./server/action/' + c_path);
+    Action.execute(req, res);
+});
+
 // 静态文件配置
 app.use('/static', express.static(path.join(__dirname, 'client/static')));
 
